@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maven.ssm.dao.IVnews">
+	<resultMap id="BaseResultMap" type="com.maven.ssm.model.VNews">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="idx_news_id" property="vnewsId" jdbcType="CHAR" />
+		<result column="idx_news_type" property="vnewsType" jdbcType="VARCHAR" />
+		<result column="idx_title" property="vnewsTitle" jdbcType="VARCHAR" />
+		<result column="idx_short_content" property="vnewsShortContent"
+			jdbcType="VARCHAR" />
+		<result column="img_url" property="vnewsImgUrl" jdbcType="VARCHAR" />
+		<result column="img_extra" property="vnewsImgExtra" jdbcType="VARCHAR" />
+		<result column="news_resouce" property="vnewsResouce" jdbcType="VARCHAR" />
+		<result column="uk_docid" property="vnewsDocId" jdbcType="VARCHAR" />
+		<result column="idx_product_time" property="vnewsProductTime"
+			jdbcType="TIMESTAMP" />
+		<result column="relative_key" property="vnewsRelativeKey"
+			jdbcType="VARCHAR" />
+		<result column="idx_body" property="vnewsBody" jdbcType="VARCHAR" />
+		<result column="editor" property="vnewsEditor" jdbcType="VARCHAR" />
+		<result column="gmt_create" property="vnewsCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modified" property="vnewsModified"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="ResVNewsBOMap" type="com.maven.ssm.pojo.ResVNewsBO">
+		<result column="idx_news_id" property="vnewsId" jdbcType="CHAR" />
+		<result column="idx_news_type" property="vnewsType" jdbcType="VARCHAR" />
+		<result column="idx_title" property="vnewsTitle" jdbcType="VARCHAR" />
+		<result column="idx_short_content" property="vnewsShortContent"
+			jdbcType="VARCHAR" />
+		<result column="img_url" property="vnewsImgUrl" jdbcType="VARCHAR" />
+		<result column="img_extra" property="vnewsImgExtra" jdbcType="VARCHAR" />
+		<result column="news_resouce" property="vnewsResouce" jdbcType="VARCHAR" />
+		<result column="uk_docid" property="vnewsDocId" jdbcType="VARCHAR" />
+		<result column="idx_product_time" property="vnewsProductTime"
+			jdbcType="TIMESTAMP" />
+		<result column="relative_key" property="vnewsRelativeKey"
+			jdbcType="VARCHAR" />
+		<result column="idx_body" property="vnewsBody" jdbcType="VARCHAR" />
+		<result column="editor" property="vnewsEditor" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="queryVNews" parameterType="com.maven.ssm.pojo.ReqVNewsBO" resultMap="ResVNewsBOMap">
+		SELECT
+			a.idx_news_id vnewsId,
+			a.idx_news_type vnewsType,
+			a.idx_title vnewsTitle,
+			a.idx_short_content vnewsShortContent,
+			a.img_url vnewsImgUrl,
+			a.img_extra vnewsImgExtra,
+			a.news_resouce vnewsResouce,
+			a.uk_docid vnewsDocId,
+			a.idx_product_time vnewsProductTime,
+			a.relative_key vnewsRelativeKey,
+			a.idx_body vnewsBody,
+			a.editor vnewsEditor
+		FROM
+			news a
+		WHERE
+			a.idx_news_type = #{reqVNewsBO.vnewsType}
+		ORDER BY a.idx_product_time desc
+	</select>
+	
+	<select id="queryItemBody" parameterType="com.maven.ssm.pojo.ReqItemBodyBO" resultType="com.maven.ssm.pojo.ResItemBodyBO">
+		SELECT
+			a.idx_body vnewsBody
+		FROM
+			news a
+		WHERE
+			a.idx_news_type = #{reqItemBodyBO.title}
+		AND
+			a.uk_docid = #{reqItemBodyBO.docId}
+	</select>
+</mapper>
